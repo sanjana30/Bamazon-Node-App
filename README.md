@@ -15,4 +15,17 @@ _Currently, the app has two levels/views, namely: **Customer** & **Manager** ._
           * _**insufficient quantity**_ is displayed
     * else
       * the app quits
+
+
+##### Manager View
+  * Manager is presented with 4 choices (to act upon):
+    * View items for sale
+      * all the items with their _**id, name, price, stock-quantity**_ are displayed
+    * View low inventory
+      * all the items (_**id, name, stock-quantity**_) with an inventory value less than or equal to **5** are displayed
+    * Add to an item's inventory
+      * manager can add units to an item by entering the item id and the number of units he wishes to add
+    * Add a new item
+      * manager can also add a new item by supplying all the 4 fields - _**name, department, price, stock-quantity**_
+ 
   
