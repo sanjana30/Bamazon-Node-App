@@ -24,6 +24,9 @@ connection.connect(function (err) {
         if(response.supervisorChoices == "View Product Sales by Department"){
             viewSalesByDepartment();
         }
+        if(response.supervisorChoices == "Create New Department"){
+            createDepartment();
+        }
     });
 });
 
@@ -39,4 +42,30 @@ function viewSalesByDepartment(){
         }
         console.log(table.toString());
     })
+}
+
+function createDepartment(){
+    inquirer.prompt([
+        {
+            message: "Enter the department name you wish to add :",
+            name: "departmentName"
+        },
+        {
+            message: "Enter the over-head costs for this department:",
+            name: "overHeadCosts"
+        }
+
+    ]).then(function (response) {
+
+        connection.query("INSERT INTO departments SET ?", [
+            {
+                department_name: response.departmentName,
+                over_head_costs: response.overHeadCosts               
+            }
+        ], function (err, res) {
+            if (err) throw err;
+            console.log(chalk.green("Department Added!"));
+            
+        });
+    });
 }
