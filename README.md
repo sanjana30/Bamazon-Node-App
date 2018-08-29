@@ -2,7 +2,8 @@
 #### An Amazon like web-front built on node.JS and uses MySQL for database.
 #### [View the app demo](https://drive.google.com/file/d/1B2FBcAt7tPeFzyWGtb9C90-8bAosXYw7/view) 
 
-_Currently, the app has two levels/views, namely: **Customer** & **Manager** ._
+_Currently, the app has two fully functional levels/views, namely: **Customer** & **Manager** ._
+_The **Supervisor** level is under progress.
 
 ##### Customer View
   * Customer sees a list of items with their price and id
@@ -28,6 +29,13 @@ _Currently, the app has two levels/views, namely: **Customer** & **Manager** ._
       * manager can add units to an item by entering the item id and the number of units he wishes to add
     * Add a new item
       * manager can also add a new item by supplying all the 4 fields - _**name, department, price, stock-quantity**_
+      
+##### Supervisor View
+  * Supervisor is presented with 2 choices (to act upon):
+    * View sales by department
+      * all the departments with their _**id, name, over-head-costs, product-sales, total profits**_ are displayed
+    * Add new department
+      * **this functionality is under progress
 
  
   
