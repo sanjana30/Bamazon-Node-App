@@ -1,5 +1,6 @@
 ## Bamazon-Node-App
 #### An Amazon like web-front built on node.JS and uses MySQL for database.
+#### [View the app demo](https://drive.google.com/file/d/1B2FBcAt7tPeFzyWGtb9C90-8bAosXYw7/view) 
 
 _Currently, the app has two levels/views, namely: **Customer** & **Manager** ._
 
@@ -27,5 +28,6 @@ _Currently, the app has two levels/views, namely: **Customer** & **Manager** ._
       * manager can add units to an item by entering the item id and the number of units he wishes to add
     * Add a new item
       * manager can also add a new item by supplying all the 4 fields - _**name, department, price, stock-quantity**_
+
  
   
