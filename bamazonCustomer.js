@@ -75,6 +75,6 @@ function showCostOfPurchase(id, units) {
     connection.query("SELECT price FROM products WHERE ?", [{ item_id: id }], function (err, res) {
         if (err) throw err;
         userCost = res[0].price * units;
-        console.log(chalk.red("Cost incurred: $")+ userCost);
+        console.log(chalk.green("Cost incurred: $")+ userCost);
     });
 }
