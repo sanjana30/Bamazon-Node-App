@@ -64,10 +64,23 @@ function checkAvailability(id, units) {
             ], function (err, res) {
                 if (err) throw err;
                 
-                showCostOfPurchase(id, units);
+                addPurchaseToTable(id, units);
             });
         }
     });
+}
+
+function addPurchaseToTable(id, units){
+    var userCost;
+    connection.query("SELECT price FROM products WHERE ?", [{ item_id: id }], function (err, res) {
+        if (err) throw err;
+        userCost = res[0].price * units;
+        connection.query("UPDATE products SET ? WHERE ?", [{ product_sales: userCost}, {item_id: id}], function (err, res) {
+            if (err) throw err;
+            console.log(chalk.green("Cost incurred: $")+ userCost);
+        });
+    })
+    
 }
 
 function showCostOfPurchase(id, units) {
