@@ -30,6 +30,8 @@ function displayItemsOnSale() {
     });
 }
 
+
+
 function userShoppingchoice() {
 
     inquirer.prompt([

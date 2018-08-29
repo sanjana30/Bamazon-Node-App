@@ -1,6 +1,8 @@
 var inquirer = require("inquirer");
 var Table = require('cli-table');
 var mysql = require("mysql");
+var chalk = require("chalk");
+var flag = true;
 var connection = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -8,30 +10,45 @@ var connection = mysql.createConnection({
     port: 3306,
     database: "bamazon"
 });
+
 connection.connect(function (err) {
     if (err) throw err;
-    inquirer.prompt([
-        {
-            type: "list",
-            message: "What do you wanna do?",
-            choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product"],
-            name: "managerChoices"
-        }
-    ]).then(function (response) {
-        if (response.managerChoices == "View Products for Sale") {
-            showProductsForSale();
-        }
-        else if (response.managerChoices == "View Low Inventory") {
-            showLowInventory();
-        }
-        else if (response.managerChoices == "Add to Inventory") {
-            addToInventory();
-        }
-        else if(response.managerChoices == "Add New Product"){
-            addNewProduct();
-        }
-    });
+    managerAction();
 });
+
+function managerAction() {
+
+    if (flag == true) {
+        inquirer.prompt([
+            {
+                type: "list",
+                message: "What do you wanna do?",
+                choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product", "Quit"],
+                name: "managerChoices"
+            }
+        ]).then(function (response) {
+            if (response.managerChoices == "View Products for Sale") {
+                showProductsForSale();
+            }
+            else if (response.managerChoices == "View Low Inventory") {
+                showLowInventory();
+            }
+            else if (response.managerChoices == "Add to Inventory") {
+                addToInventory();
+            }
+            else if (response.managerChoices == "Add New Product") {
+                addNewProduct();
+            }
+            if (response.managerChoices == "Quit") {
+                flag = false;
+                managerAction();
+            }
+        });
+    }
+    else {
+        console.log(chalk.red("Bye Bye! See you again soon."));
+    }
+}
 
 function showProductsForSale() {
     connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", function (err, res) {
@@ -46,6 +63,7 @@ function showProductsForSale() {
             // console.log(`${res[i].item_id}  ||      ${res[i].product_name}      ||      ${res[i].price}     ||      ${res[i].stock_quantity}`);
         }
         console.log(table.toString());
+        managerAction();
     });
 }
 
@@ -61,6 +79,7 @@ function showLowInventory() {
             // console.log(`${res[i].item_id}  ||      ${res[i].product_name}      ||      ${res[i].stock_quantity}`);
         }
         console.log(table.toString());
+        managerAction();
     });
 }
 
@@ -84,12 +103,13 @@ function addToInventory() {
             }
         ], function (err, res) {
             if (err) throw err;
-            console.log("Stock Added!");
+            console.log(chalk.green("Stock Added!"));
+            managerAction();
         });
     });
 }
 
-function addNewProduct(){
+function addNewProduct() {
     inquirer.prompt([
         {
             message: "Enter the product name you wish to add :",
@@ -109,7 +129,7 @@ function addNewProduct(){
         }
 
     ]).then(function (response) {
-        
+
         connection.query("INSERT INTO products SET ?", [
             {
                 product_name: response.productName,
@@ -119,7 +139,8 @@ function addNewProduct(){
             }
         ], function (err, res) {
             if (err) throw err;
-            console.log("Item Added!");
+            console.log(chalk.green("Item Added!"));
+            managerAction();
         });
     });
 }
